@@ -10,8 +10,12 @@ export default withAuth(
         callbacks: {
             authorized: ({ token, req}) => {
                 const { pathname } = req.nextUrl;
-                // Allow auth-related routes 
+                // Allow webhook endpoint 
+                if (pathname.startsWith("/api/webhook")) {
+                    return true;
+                }
 
+                // Allow auth-related routes 
                 if (
                     pathname.startsWith("/api/auth") ||
                     pathname === "/login" ||
